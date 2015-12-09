@@ -1,6 +1,3 @@
-group 'dpallas.kotlin'
-version '1.0.0-beta-1'
-
 buildscript {
     ext.kotlinVersion = '1.0.0-beta-3594'
 
@@ -12,25 +9,12 @@ buildscript {
     }
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'idea'
-apply plugin: 'java'
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
 
-sourceCompatibility = '1.6'
-targetCompatibility = '1.8'
-
-// In this section you declare where to find the dependencies of your project
-repositories {
-    jcenter()
-}
-
-dependencies {
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-}
-
-task listExtensions(type: Jar)
-
-artifacts {
-    archives listExtensions
+    apply plugin: 'kotlin'
+    group 'dpallas.kotlin'
 }

@@ -1,0 +1,11 @@
+version '1.0.0-beta-1'
+
+apply plugin: 'kotlin'
+
+sourceCompatibility = '1.6'
+targetCompatibility = '1.8'
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+}
