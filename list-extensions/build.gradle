@@ -1,12 +1,48 @@
-version '1.0.0-beta-2'
-
+plugins {
+    id "com.jfrog.bintray" version "1.4"
+    id 'maven'
+    id 'maven-publish'
+}
 apply plugin: 'kotlin'
-apply plugin: 'maven'
 
+version '1.0.0-beta-2'
 sourceCompatibility = '1.6'
 targetCompatibility = '1.8'
 
 dependencies {
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourceJar
+}
+
+publishing {
+    publications {
+        mavenJar(MavenPublication) {
+            groupId = "$group"
+            artifactId = "list-extensions"
+            version = "$version"
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
+
+bintray {
+    user = jcenterUser
+    key = jcenterKey
+    publications = ['mavenJar']
+    pkg {
+        repo ='maven'
+        name ='list-extensions'
+    }
 }
